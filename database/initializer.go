@@ -53,6 +53,13 @@ func (s *PostgreSQLStore) InitEnums() error {
 				CREATE TYPE notification_type AS ENUM('referral', 'comment');
            	END IF;
 		END $$;
+
+		DO $$
+		BEGIN
+           	IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'todo_status') THEN
+				CREATE TYPE todo_status AS ENUM('pending', 'completed', 'unable to do');
+           	END IF;
+		END $$;
 	`
 	_, err := s.db.Exec(query)
 
@@ -164,7 +171,20 @@ func (s *PostgreSQLStore) InitTables() error {
 		url VARCHAR(100)
 	);
 	`
-	all_tables := strings.Join([]string{users_table, doctor_assistant_table, patient_table, report_case_table, medical_report_table, comments_table, notifications_table}, "")
+	// TODO REMOVE THIS
+	// DEVELOPMENT TESTING
+	todo_table := `
+	CREATE TABLE IF NOT EXISTS todo (
+		id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+		name VARCHAR(100) NOT NULL UNIQUE,
+		description TEXT NOT NULL,
+		due DATE NOT NULL,
+		status todo_status DEFAULT 'pending'
+	);
+	`
+	//
+
+	all_tables := strings.Join([]string{users_table, doctor_assistant_table, patient_table, report_case_table, medical_report_table, comments_table, notifications_table, todo_table}, "")
 
 	_, err := s.db.Exec(all_tables)
 	return err

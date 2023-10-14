@@ -2,10 +2,10 @@ package app
 
 import (
 	"fmt"
-	"log"
 	"os"
 	"time"
 
+	"github.com/TVM-LLC/docapp_backend/api"
 	"github.com/TVM-LLC/docapp_backend/config"
 	"github.com/TVM-LLC/docapp_backend/database"
 	"github.com/TVM-LLC/docapp_backend/router"
@@ -20,24 +20,25 @@ func SetupAndRunServer() error {
 	}
 
 	// Start DB
-	db, err := database.Start()
+	store, err := database.Start()
 	if err != nil {
 		return err
 	}
-	if err := db.Init(); err != nil {
+	if err := store.Init(); err != nil {
 		return err
 	}
 
 	// Defer Closing DB
-	db.Close()
+	defer store.Close()
 
-	// Create app
-	app := gin.New()
+	// Init API
+	var server *api.APIServer = api.NewAPIServer(os.Getenv("PORT"))
+	app := server.GetEngine()
 
 	// Attach Middleware
 	// Custom Logger
 	app.Use(gin.LoggerWithFormatter(func(param gin.LogFormatterParams) string {
-		// your custom format
+		// custom format
 		return fmt.Sprintf("%s - [%s] \"%s %s %s %d %s \"%s\" %s\"\n",
 			param.ClientIP,
 			param.TimeStamp.Format(time.RFC1123),
@@ -51,19 +52,14 @@ func SetupAndRunServer() error {
 		)
 	}))
 
-	//	r.Use(gin.Logger())
 	app.Use(gin.Recovery())
 
 	// Setup Routes
-	router.SetupRoutes(app)
+	router.SetupRoutes(app, store)
 
 	// Attach Swagger
 
 	// Get the PORT & Start the Server
-	PORT := os.Getenv("PORT")
-	// Listen and serve on 0.0.0.0:8080
-	log.Println("Starting Server on PORT: " + PORT)
-	app.Run(":" + PORT)
+	return server.Run()
 
-	return nil
 }

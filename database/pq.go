@@ -5,12 +5,15 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/TVM-LLC/docapp_backend/model"
 	_ "github.com/lib/pq"
 )
 
 type Storage interface {
 	Init() error
 	Close()
+	// TODO: Add methods for interacting with the database
+	GetTodos() ([]model.Todo, error)
 }
 
 type PostgreSQLStore struct {
