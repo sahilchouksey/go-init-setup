@@ -22,9 +22,16 @@ func SetupAndRunServer() error {
 	// Start DB
 	store, err := database.Start()
 	if err != nil {
+		print("Check whether the Postgres is running or not\n")
+		print("If not running, run the following command\n")
+		print("bash ./docker_essentials\n")
 		return err
 	}
+
 	if err := store.Init(); err != nil {
+		print("Check whether the Postgres is running or not\n")
+		print("If not running, run the following command\n")
+		print("bash ./docker_essentials\n")
 		return err
 	}
 
