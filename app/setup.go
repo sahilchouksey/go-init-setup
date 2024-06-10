@@ -17,6 +17,7 @@ func SetupAndRunServer() error {
 	// Load ENV
 	if err := config.LoadENV(); err != nil {
 		return err
+
 	}
 
 	// Start DB

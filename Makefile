@@ -1,5 +1,5 @@
-dev:
-	air
+# Makefile
 
-swagger:
-	swag init --dir ./,./handlers
+run:
+	go run main.go
+
