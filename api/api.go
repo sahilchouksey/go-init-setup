@@ -1,31 +1,32 @@
 package api
 
 import (
+	"log"
+
+	"github.com/gofiber/fiber/v3"
 	"github.com/sahilchouksey/go-init-setup/database"
-	"github.com/gin-gonic/gin"
-	"github.com/gofiber/fiber/v2/log"
 )
 
 type APIServer struct {
-	app           *gin.Engine
+	app           *fiber.App
 	listenAddress string
 	store         database.Storage
 }
 
 func NewAPIServer(listenAddress string) *APIServer {
 	return &APIServer{
-		app:           gin.New(),
+		app:           fiber.New(),
 		listenAddress: listenAddress,
 	}
 }
 
-func (s *APIServer) GetEngine() *gin.Engine {
+func (s *APIServer) GetEngine() *fiber.App {
 	return s.app
 }
 
 func (s *APIServer) Run() error {
-	log.Info("Starting API Server")
-	log.Infof("Listening on %s", s.listenAddress)
+	log.Println("Starting API Server")
+	log.Println("Listening on %s", s.listenAddress)
 
-	return s.app.Run(":" + s.listenAddress)
+	return s.app.Listen(s.listenAddress)
 }

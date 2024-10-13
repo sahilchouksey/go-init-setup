@@ -1,15 +1,16 @@
 package app
 
 import (
-	"fmt"
 	"os"
-	"time"
 
+	"github.com/gofiber/fiber/v3/middleware/logger"
+	"github.com/gofiber/fiber/v3/middleware/recover"
 	"github.com/sahilchouksey/go-init-setup/api"
 	"github.com/sahilchouksey/go-init-setup/config"
-	"github.com/sahilchouksey/go-init-setup/database"
 	"github.com/sahilchouksey/go-init-setup/router"
-	"github.com/gin-gonic/gin"
+
+	//"github.com/sahilchouksey/go-init-setup/databa/go-init-setup/router"
+	"github.com/sahilchouksey/go-init-setup/database"
 )
 
 func SetupAndRunServer() error {
@@ -45,22 +46,9 @@ func SetupAndRunServer() error {
 
 	// Attach Middleware
 	// Custom Logger
-	app.Use(gin.LoggerWithFormatter(func(param gin.LogFormatterParams) string {
-		// custom format
-		return fmt.Sprintf("%s - [%s] \"%s %s %s %d %s \"%s\" %s\"\n",
-			param.ClientIP,
-			param.TimeStamp.Format(time.RFC1123),
-			param.Method,
-			param.Path,
-			param.Request.Proto,
-			param.StatusCode,
-			param.Latency,
-			param.Request.UserAgent(),
-			param.ErrorMessage,
-		)
-	}))
+	app.Use(logger.New())
 
-	app.Use(gin.Recovery())
+	app.Use(recover.New())
 
 	// Setup Routes
 	router.SetupRoutes(app, store)

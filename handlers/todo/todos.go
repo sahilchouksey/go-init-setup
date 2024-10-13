@@ -6,13 +6,13 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/gofiber/fiber/v3"
 	"github.com/sahilchouksey/go-init-setup/database"
 	"github.com/sahilchouksey/go-init-setup/model"
 	utils "github.com/sahilchouksey/go-init-setup/utils"
-	"github.com/gin-gonic/gin"
 )
 
-func GetAllTodos(c *gin.Context, store *database.PostgreSQLStore) error {
+func GetAllTodos(c fiber.Ctx, store *database.PostgreSQLStore) error {
 	// Get the database connection from the context
 	todos, err := store.GetTodos()
 	if err != nil {
@@ -23,7 +23,7 @@ func GetAllTodos(c *gin.Context, store *database.PostgreSQLStore) error {
 	return nil
 }
 
-func AddTodoHandler(c *gin.Context, store *database.PostgreSQLStore) error {
+func AddTodoHandler(c fiber.Ctx, store *database.PostgreSQLStore) error {
 	var todo model.Todo
 	var err error
 
@@ -48,7 +48,7 @@ func AddTodoHandler(c *gin.Context, store *database.PostgreSQLStore) error {
 	return nil
 }
 
-func UpdateTodoHandler(c *gin.Context, store *database.PostgreSQLStore) error {
+func UpdateTodoHandler(c fiber.Ctx, store *database.PostgreSQLStore) error {
 	var todo model.Todo
 	var err error
 
@@ -73,7 +73,7 @@ func UpdateTodoHandler(c *gin.Context, store *database.PostgreSQLStore) error {
 	return nil
 }
 
-func DeleteTodoHandler(c *gin.Context, store *database.PostgreSQLStore) error {
+func DeleteTodoHandler(c fiber.Ctx, store *database.PostgreSQLStore) error {
 	var todoId int64
 	var err error
 	if todoId, err = strconv.ParseInt(c.Query("id"), 10, 64); todoId <= 0 || err != nil {

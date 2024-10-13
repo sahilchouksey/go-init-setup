@@ -1,11 +1,11 @@
 package handlers
 
 import (
+	"github.com/gofiber/fiber/v3"
 	"github.com/sahilchouksey/go-init-setup/database"
-	"github.com/gin-gonic/gin"
 )
 
-func HandleCheckHealth(c *gin.Context, store *database.PostgreSQLStore) error {
-	c.String(200, "PONG")
+func HandleCheckHealth(c fiber.Ctx, store *database.PostgreSQLStore) error {
+	c.JSON(fiber.Map{"status": "ok"})
 	return nil
 }
