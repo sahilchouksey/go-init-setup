@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/TVM-LLC/docapp_backend/model"
+	"github.com/sahilchouksey/go-init-setup/model"
 	_ "github.com/lib/pq"
 )
 

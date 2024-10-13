@@ -5,10 +5,10 @@ import (
 	"os"
 	"time"
 
-	"github.com/TVM-LLC/docapp_backend/api"
-	"github.com/TVM-LLC/docapp_backend/config"
-	"github.com/TVM-LLC/docapp_backend/database"
-	"github.com/TVM-LLC/docapp_backend/router"
+	"github.com/sahilchouksey/go-init-setup/api"
+	"github.com/sahilchouksey/go-init-setup/config"
+	"github.com/sahilchouksey/go-init-setup/database"
+	"github.com/sahilchouksey/go-init-setup/router"
 	"github.com/gin-gonic/gin"
 )
 

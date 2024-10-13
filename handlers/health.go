@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	"github.com/TVM-LLC/docapp_backend/database"
+	"github.com/sahilchouksey/go-init-setup/database"
 	"github.com/gin-gonic/gin"
 )
 

@@ -6,9 +6,9 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/TVM-LLC/docapp_backend/database"
-	"github.com/TVM-LLC/docapp_backend/model"
-	utils "github.com/TVM-LLC/docapp_backend/utils"
+	"github.com/sahilchouksey/go-init-setup/database"
+	"github.com/sahilchouksey/go-init-setup/model"
+	utils "github.com/sahilchouksey/go-init-setup/utils"
 	"github.com/gin-gonic/gin"
 )
 

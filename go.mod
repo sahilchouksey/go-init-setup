@@ -1,4 +1,4 @@
-module github.com/TVM-LLC/docapp_backend
+module github.com/sahilchouksey/go-init-setup
 
 go 1.21.0
 

@@ -4,8 +4,8 @@ import (
 	"database/sql"
 	"fmt"
 
-	"github.com/TVM-LLC/docapp_backend/model"
-	queryHelper "github.com/TVM-LLC/docapp_backend/utils/query"
+	"github.com/sahilchouksey/go-init-setup/model"
+	queryHelper "github.com/sahilchouksey/go-init-setup/utils/query"
 )
 
 func (s *PostgreSQLStore) GetTodos() ([]*model.Todo, error) {

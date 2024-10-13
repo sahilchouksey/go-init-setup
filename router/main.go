@@ -1,10 +1,10 @@
 package router
 
 import (
-	"github.com/TVM-LLC/docapp_backend/database"
-	"github.com/TVM-LLC/docapp_backend/handlers"
-	todo_handlers "github.com/TVM-LLC/docapp_backend/handlers/todo"
-	utils "github.com/TVM-LLC/docapp_backend/utils"
+	"github.com/sahilchouksey/go-init-setup/database"
+	"github.com/sahilchouksey/go-init-setup/handlers"
+	todo_handlers "github.com/sahilchouksey/go-init-setup/handlers/todo"
+	utils "github.com/sahilchouksey/go-init-setup/utils"
 	"github.com/gin-gonic/gin"
 )
 

@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/TVM-LLC/docapp_backend/app"
+	"github.com/sahilchouksey/go-init-setup/app"
 	"github.com/gofiber/fiber/v2/log"
 )
 
