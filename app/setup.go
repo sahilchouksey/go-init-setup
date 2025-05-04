@@ -1,7 +1,7 @@
 package app
 
 import (
-	"os"
+	"fmt"
 
 	"github.com/gofiber/fiber/v3/middleware/logger"
 	"github.com/gofiber/fiber/v3/middleware/recover"
@@ -21,7 +21,11 @@ func SetupAndRunServer() error {
 
 	}
 
-	// Start DB
+	getEnv, err := config.Get()
+	if err != nil {
+		return err
+	}
+
 	store, err := database.Start()
 	if err != nil {
 		print("Check whether the Postgres is running or not\n")
@@ -41,7 +45,7 @@ func SetupAndRunServer() error {
 	defer store.Close()
 
 	// Init API
-	var server *api.APIServer = api.NewAPIServer(os.Getenv("PORT"))
+	var server *api.APIServer = api.NewAPIServer(fmt.Sprintf(":%d", getEnv.PORT))
 	app := server.GetEngine()
 
 	// Attach Middleware

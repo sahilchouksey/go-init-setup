@@ -5,8 +5,9 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/sahilchouksey/go-init-setup/model"
 	_ "github.com/lib/pq"
+	"github.com/sahilchouksey/go-init-setup/config"
+	"github.com/sahilchouksey/go-init-setup/model"
 )
 
 type Storage interface {
@@ -21,7 +22,14 @@ type PostgreSQLStore struct {
 }
 
 func Start() (*PostgreSQLStore, error) {
-	connectStr := "user=postgres password=lol dbname=postgres sslmode=disable"
+	getEnv, err := config.Get()
+
+	if err != nil {
+		return nil, err
+	}
+
+	// connectStr := fmt.Sprintf("user=postgres password=lol dbname=postgres sslmode=disable", )
+	connectStr := fmt.Sprintf("user=%s password=%s dbname=%s sslmode=%s", getEnv.DB_USER_NAME, getEnv.DB_PASSWORD, getEnv.DB_NAME, getEnv.DB_SSL_MODE)
 
 	db, err := sql.Open("postgres", connectStr)
 	if err != nil {
